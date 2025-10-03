@@ -2,37 +2,37 @@ package com.TocarronesConMamate.festify_api.web.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.TocarronesConMamate.festify_api.dto.response.ArtistResponse;
+import com.TocarronesConMamate.festify_api.service.ArtistService;
 
 @RestController
 
 public class ArtistController {
-    
-    //private List<ArtistResponse> artists;
-    //public ArtistController() {
-        //this.artists = new ArrayList<>();
-        //this.artists.add(
-            //new ArtistResponse("ART-001","Bad Bunny", "Pop","España")
-        //);
-    //}
- 
 
     private List<ArtistResponse> artists = List.of(
         new ArtistResponse("1", "The Rolling Stones", "Rock", "UK"),
-        new ArtistResponse("2", "Beyoncé", "Pop", "USA"),
+        new ArtistResponse("2", "Beyoncé", "Pop, R&B", "USA"),
         new ArtistResponse("3", "Bad Bunny", "Reggaeton", "Puerto Rico"),
         new ArtistResponse("4", "Adele", "Pop", "UK"),
         new ArtistResponse("5", "Drake", "Hip-Hop", "Canada")
     );
 
+    private final ArtistService artistService;
+
+    @Autowired
+    public ArtistController(ArtistService artistService) {
+        this.artistService = artistService;
+    }
+
     @GetMapping(path="/artists")
     public List<ArtistResponse> listArtists() {
-        return artists;
+        return artistService.listArtists();
     }
 
     @GetMapping(path="/artists/{id}")
