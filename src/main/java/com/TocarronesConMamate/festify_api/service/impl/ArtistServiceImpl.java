@@ -8,12 +8,13 @@ import com.TocarronesConMamate.festify_api.mapper.ArtistMapper;
 import com.TocarronesConMamate.festify_api.persistence.jpa.entity.ArtistEntity;
 import com.TocarronesConMamate.festify_api.persistence.jpa.repository.ArtistJpaRepository;
 import com.TocarronesConMamate.festify_api.service.ArtistService;
+import com.TocarronesConMamate.festify_api.dto.request.ArtistRequest;
 
 @Service
 public class ArtistServiceImpl implements ArtistService {
 
     private final ArtistJpaRepository artistJpaRepository;
-
+    
     @Autowired
     public ArtistServiceImpl(ArtistJpaRepository artistJpaRepository) {
         this.artistJpaRepository = artistJpaRepository;
@@ -25,5 +26,12 @@ public class ArtistServiceImpl implements ArtistService {
         return artists.stream()
                 .map(ArtistMapper::mapArtistToArtistResume)
                 .toList();
+    }
+
+    @Override
+    public ArtistResponse newArtist(ArtistRequest request) {
+        ArtistEntity artist = ArtistMapper.mapArtistRequestToArtistEntity(request);
+        ArtistEntity result = this.artistJpaRepository.save(artist);
+        return ArtistMapper.mapArtistToArtistResume(result);
     }
 }
