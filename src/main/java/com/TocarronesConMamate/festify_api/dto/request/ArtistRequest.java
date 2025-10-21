@@ -1,5 +1,5 @@
 package com.TocarronesConMamate.festify_api.dto.request;
 import java.util.*;
-public record CreateArtist( String name, String genre, String country){
+public record ArtistRequest( String name, List<String> genres, String country){
     
 }

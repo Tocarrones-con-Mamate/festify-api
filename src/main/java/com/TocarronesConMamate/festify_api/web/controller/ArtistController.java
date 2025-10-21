@@ -1,26 +1,30 @@
 package com.TocarronesConMamate.festify_api.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.TocarronesConMamate.festify_api.dto.request.CreateArtist;
+import com.TocarronesConMamate.festify_api.dto.request.ArtistRequest;
 import com.TocarronesConMamate.festify_api.dto.response.ArtistResponse;
 import com.TocarronesConMamate.festify_api.dto.service.ArtistService;
+import com.TocarronesConMamate.festify_api.persistence.jpa.entity.ArtistEntity;
 
 import java.util.*;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class ArtistController {
 
     private final ArtistService artistService;
 
-    private List<ArtistResponse> artists=List.of(
-        new ArtistResponse("1", "The Offspring", "Rock Punk", "Murica Land")
-    );   //Crea listas que no se pueden editar (o al menos no agregar cosas)
+    // private List<ArtistResponse> artists=List.of(
+    //     new ArtistResponse("1", "The Offspring", "Rock Punk", "Murica Land")
+    // );   //Crea listas que no se pueden editar (o al menos no agregar cosas)
 
     /*private List<ArtistResponse> artists;
 
@@ -38,24 +42,18 @@ public class ArtistController {
 
     @GetMapping(path="/artists")
     public List<ArtistResponse> listArtist(){
-        return artists;
+        return artistService.ListArtists();
     }
 
-    @GetMapping(path="/artists/{id}")
-    public ArtistResponse getArtistById(@PathVariable(name="id") String id){
-        for(int i=0; i<artists.size(); i++){
-            if(artists.get(i).id().equals(id)){
-                return artists.get(i);
-            }
-        }
-        return null;
-    }
+    // @GetMapping(path="/artists/{id}")
+    // public List<ArtistResponse> (@PathVariable(name="id") String id){
+        
+    //     return artistService.getArtistById(id);
+    // }
 
     @PostMapping(path="/artists")
-    public ArtistResponse addArtist(@RequestBody CreateArtist artists2){
-        int x=0;
-        x=artists.size()+1;
-        this.artists.add(new ArtistResponse(String.valueOf(artists.size()+1),"", "", ""));
-        return artists.get(x);
+    public ArtistResponse createArtist(@RequestBody ArtistRequest request){
+        
+        return artistService.createArtist(request);
     }
 }
