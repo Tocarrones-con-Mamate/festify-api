@@ -9,4 +9,6 @@ public interface ArtistService {
     List<ArtistResponse> listArtists();
     
     ArtistResponse newArtist(ArtistRequest request);
+
+    void deleteArtist(ArtistRequest id);
 }

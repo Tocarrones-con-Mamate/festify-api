@@ -34,4 +34,12 @@ public class ArtistServiceImpl implements ArtistService {
         ArtistEntity result = this.artistJpaRepository.save(artist);
         return ArtistMapper.mapArtistToArtistResume(result);
     }
+
+    @Override
+    public void deleteArtist(ArtistRequest delete){
+        int id = delete.id();
+        Long idLong = Long.valueOf(id);
+        ArtistEntity artist = this.artistJpaRepository.findById(idLong);
+        this.artistJpaRepository.deleteById(idLong);
+    }
 }

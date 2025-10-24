@@ -43,10 +43,11 @@ public class ArtistEntity {
         this.status = status;
     }
 
-    public ArtistEntity(String name, List<String> genres, String country) {
+    public ArtistEntity(String name, List<String> genres, String country, Integer listeners) {
         this.name = name;
         this.genres = genres;
         this.country = country;
+        this.listeners = listeners;
     }
 
     public Long getId() {
