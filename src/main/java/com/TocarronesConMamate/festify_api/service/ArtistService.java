@@ -1,4 +1,4 @@
-package com.TocarronesConMamate.festify_api.dto.service;
+package com.TocarronesConMamate.festify_api.service;
 
 import java.util.*;
 import com.TocarronesConMamate.festify_api.dto.response.ArtistResponse;

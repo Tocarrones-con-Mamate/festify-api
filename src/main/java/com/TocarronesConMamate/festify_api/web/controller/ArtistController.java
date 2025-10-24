@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.TocarronesConMamate.festify_api.dto.request.ArtistRequest;
 import com.TocarronesConMamate.festify_api.dto.response.ArtistResponse;
-import com.TocarronesConMamate.festify_api.dto.service.ArtistService;
 import com.TocarronesConMamate.festify_api.persistence.jpa.entity.ArtistEntity;
+import com.TocarronesConMamate.festify_api.service.ArtistService;
 
 import java.util.*;
 

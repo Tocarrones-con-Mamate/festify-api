@@ -1,17 +1,16 @@
-package com.TocarronesConMamate.festify_api.dto.service.Impl;
+package com.TocarronesConMamate.festify_api.service.Impl;
 
 import java.util.List;
 
-import org.springframework.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.TocarronesConMamate.festify_api.ArtistMapper;
 import com.TocarronesConMamate.festify_api.dto.request.ArtistRequest;
 import com.TocarronesConMamate.festify_api.dto.response.ArtistResponse;
-import com.TocarronesConMamate.festify_api.dto.service.ArtistService;
+import com.TocarronesConMamate.festify_api.mapper.ArtistMapper;
 import com.TocarronesConMamate.festify_api.persistence.jpa.entity.ArtistEntity;
 import com.TocarronesConMamate.festify_api.persistence.jpa.repository.ArtistJpaRepository;
+import com.TocarronesConMamate.festify_api.service.ArtistService;
 
 @Service
 public class ArtistServiceImpl implements ArtistService{

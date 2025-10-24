@@ -1,4 +1,4 @@
-package com.TocarronesConMamate.festify_api;
+package com.TocarronesConMamate.festify_api.mapper;
 
 import com.TocarronesConMamate.festify_api.dto.request.ArtistRequest;
 import com.TocarronesConMamate.festify_api.dto.response.ArtistResponse;
