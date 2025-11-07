@@ -10,9 +10,7 @@ public interface ArtistService {
 
     ArtistResponse createArtist(ArtistRequest request); // ¡Duda! Porque es ArtistResponse y no public ArtistResponse
     
-
-
-    // ArtistResponse updateArtist(String id, ArtistRequest request);
+    ArtistResponse updateArtist(String id, ArtistRequest request);
 
     // ArtistResponse getArtistById(String id);
 

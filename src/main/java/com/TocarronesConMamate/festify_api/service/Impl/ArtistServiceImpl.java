@@ -56,11 +56,18 @@ public class ArtistServiceImpl implements ArtistService{
     }
 
     
-    // @Override
-    // public ArtistResponse updateArtist(String id, ArtistRequest request) {
-    //     
-    //     throw new UnsupportedOperationException("Unimplemented method 'updateArtist'");
-    // }
+    @Override
+    public ArtistResponse updateArtist(String id, ArtistRequest request) {
+
+        List<ArtistEntity> artists = this.artistJpaRepository.findById(artists);
+        
+        ArtistEntity artists = ArtistMapper.mapArtistRequestToArtistEntity(request);
+    
+        ArtistEntity result = this.artistJpaRepository.save(artists);
+    
+        return ArtistMapper.mapArtistToArtistResponse(result);
+
+    }
 
     // @Override
     // public ArtistResponse getArtistById(String id) {
