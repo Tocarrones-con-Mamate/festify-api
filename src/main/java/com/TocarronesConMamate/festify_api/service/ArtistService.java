@@ -12,9 +12,9 @@ public interface ArtistService {
     
     ArtistResponse updateArtist(String id, ArtistRequest request);
 
-    // ArtistResponse getArtistById(String id);
+    ArtistResponse getArtistById(String id);
 
-    // void deleteArtist(String id);
+    void deleteArtist(String id);
 
 }
 

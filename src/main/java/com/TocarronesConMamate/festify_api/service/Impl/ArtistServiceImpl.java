@@ -1,6 +1,9 @@
 package com.TocarronesConMamate.festify_api.service.Impl;
 
 import java.util.List;
+import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,12 +14,12 @@ import com.TocarronesConMamate.festify_api.mapper.ArtistMapper;
 import com.TocarronesConMamate.festify_api.persistence.jpa.entity.ArtistEntity;
 import com.TocarronesConMamate.festify_api.persistence.jpa.repository.ArtistJpaRepository;
 import com.TocarronesConMamate.festify_api.service.ArtistService;
+import com.util.exception.InvalidIdException;
 
 @Service
 public class ArtistServiceImpl implements ArtistService{
 
-    //private static final ArtistJpaRepository repo;
-
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     final private ArtistJpaRepository artistJpaRepository;
 
     @Autowired
@@ -34,15 +37,6 @@ public class ArtistServiceImpl implements ArtistService{
             return artists.stream().map(ArtistMapper::mapArtistToArtistResponse).toList();
         
     }
-    // private Long parseArtistId(String strId) {
-    // try {
-    //     strId = strId.trim().replace("ART-","");
-    //     Long id = Integer.valueOf(strId).longValue();
-    //     return id;
-    // }catch (NumberFormatException e) {
-    //     throw new InvalidIdException("Invalid artist id " + strId);
-    // }
-// }
 
     @Override
     public ArtistResponse createArtist(ArtistRequest request) {
@@ -57,33 +51,41 @@ public class ArtistServiceImpl implements ArtistService{
 
     
     @Override
-    public ArtistResponse updateArtist(String id, ArtistRequest request) {
+    public ArtistResponse updateArtist(String strid, ArtistRequest request) {
 
-        List<ArtistEntity> artists = this.artistJpaRepository.findById(artists);
+        Long id = parseArtistId(strid);
         
         ArtistEntity artists = ArtistMapper.mapArtistRequestToArtistEntity(request);
     
+        artists.setId(id);
+
+        logger.info("Update artist with id {}", artists.getId());
         ArtistEntity result = this.artistJpaRepository.save(artists);
-    
         return ArtistMapper.mapArtistToArtistResponse(result);
 
     }
 
-    // @Override
-    // public ArtistResponse getArtistById(String id) {
-    //     
-    //     throw new UnsupportedOperationException("Unimplemented method 'getArtistById'");
-    // }
+    @Override
+    public ArtistResponse getArtistById(String strid) {
+        Long id = parseArtistId(strid);
+        Optional<ArtistEntity> artist = this.artistJpaRepository.findById(id);
+        return ArtistMapper.mapArtistToArtistResponse(artist.get());
+    }
 
-    // @Override
-    // public void deleteArtist(String id) {
-    //     
-    //     throw new UnsupportedOperationException("Unimplemented method 'deleteArtist'");
-    // }
+    @Override
+    public void deleteArtist(String strid) {
+        Long id = parseArtistId(strid);
+        this.artistJpaRepository.deleteById(id);
+    }
 
-    // @Override
-    // public ArtistRequest request(String name, String genre, String country) {
-    //     
-    //     throw new UnsupportedOperationException("Unimplemented method 'request'");
-    // }
+    private Long parseArtistId(String strid) {
+        try {
+            strid = strid.trim().replace("ART-","");
+            Long id = Integer.valueOf(strid).longValue();
+            return id;
+        }catch (NumberFormatException e) {
+            throw new InvalidIdException("Invalid artist id " + strid);
+        }
+    }
+
 }
